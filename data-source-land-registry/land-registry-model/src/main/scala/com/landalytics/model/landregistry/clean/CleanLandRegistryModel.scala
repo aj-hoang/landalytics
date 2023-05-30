@@ -4,7 +4,7 @@ import java.sql.Date
 
 object CleanLandRegistryModel {
   case class LandRegistry(
-                           transcationUniqueId: String,
+                           transactionUniqueId: String,
                            price: Option[Double],
                            dateOfTransfer: Option[Date],
                            postcode: Option[String],

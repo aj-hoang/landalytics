@@ -3,7 +3,7 @@ package com.landalytics.model.landregistry.raw
 object RawLandRegistryModel {
 
   case class RawLandRegistry(
-                            transcationUniqueId: String,
+                            transactionUniqueId: String,
                             price: Option[String],
                             dateOfTransfer: Option[String],
                             postcode: Option[String],

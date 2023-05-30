@@ -9,7 +9,6 @@ import java.sql.Date
 object CreateCaseClass {
 
   private def convertLrDateOfTransferStringToDate(dateString: String): Date = {
-//    println(dateString.substring(0,10))
     Date.valueOf(dateString.substring(0,10))
   }
 
@@ -20,7 +19,7 @@ object CreateCaseClass {
 
     val lrDS = rawLrDS.map{ rawLr =>
       LandRegistry(
-        transcationUniqueId = rawLr.transcationUniqueId,
+        transactionUniqueId = rawLr.transactionUniqueId,
         price = rawLr.price.map(_.toDouble),
         dateOfTransfer = rawLr.dateOfTransfer.map(convertLrDateOfTransferStringToDate),
         postcode = rawLr.postcode,
