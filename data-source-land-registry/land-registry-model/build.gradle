@@ -1,3 +1,7 @@
 plugins {
     id 'landalytics.scala-library-conventions'
 }
+
+jar {
+    archiveBaseName = "${project.name}_$scalaVersion"
+}
