@@ -28,7 +28,13 @@ dependencies {
     implementation "org.apache.spark:spark-sql_$scalaVersion"
 
     // Use JUnit Jupiter for testing.
+    testImplementation 'junit:junit:null'
+    testImplementation "org.scalatest:scalatest_$scalaVersion:3.1.2"
+    testImplementation "org.scalatestplus:junit-4-12_$scalaVersion:3.1.2.0"
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+    // Need scala-xml at test runtime
+    testRuntimeOnly "org.scala-lang.modules:scala-xml_$scalaVersion:1.2.0"
 }
 
 tasks.named('test') {
