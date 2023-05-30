@@ -5,3 +5,7 @@ plugins {
 dependencies {
     implementation project(':data-source-land-registry:land-registry-model')
 }
+
+jar {
+    archiveBaseName = "${project.name}_$scalaVersion"
+}
