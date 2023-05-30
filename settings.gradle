@@ -13,4 +13,10 @@ plugins {
 }
 
 rootProject.name = 'landalytics'
-include('app', 'list', 'utilities', 'data-source-land-registry')
+include(
+        'app',
+        'list',
+        'utilities',
+        'data-source-land-registry:land-registry-model',
+        'data-source-land-registry:land-registry-etl'
+)

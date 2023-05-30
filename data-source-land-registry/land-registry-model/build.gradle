@@ -1,0 +1,3 @@
+plugins {
+    id 'landalytics.scala-library-conventions'
+}

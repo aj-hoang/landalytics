@@ -1,0 +1,7 @@
+plugins {
+    id 'landalytics.scala-library-conventions'
+}
+
+dependencies {
+    implementation project(':data-source-land-registry:land-registry-model')
+}
