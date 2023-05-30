@@ -16,9 +16,7 @@ dependencies {
     constraints {
         // Define dependency versions as constraints
         implementation 'org.apache.commons:commons-text:1.10.0'
-
         implementation 'org.scala-lang:scala-library:2.12.10'
-
         implementation "org.apache.spark:spark-sql_$scalaVersion:3.3.2"
 
     }
