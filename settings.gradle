@@ -15,7 +15,7 @@ plugins {
 rootProject.name = 'landalytics'
 include(
         'app',
-        'utilities',
+        'utilities:address-parsers',
         'data-source-land-registry:land-registry-model',
         'data-source-land-registry:land-registry-etl'
 )

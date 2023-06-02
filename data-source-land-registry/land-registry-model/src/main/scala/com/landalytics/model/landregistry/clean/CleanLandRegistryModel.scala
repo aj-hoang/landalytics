@@ -1,5 +1,7 @@
 package com.landalytics.model.landregistry.clean
 
+import com.landalytics.utilities.addressparsers.ParsedAddressModel.ParsedAddress
+
 import java.sql.Date
 
 object CleanLandRegistryModel {
@@ -21,4 +23,21 @@ object CleanLandRegistryModel {
                            ppdCategoryType: Option[String],
                            recordStatus: Option[String]
                             )
+
+  case class LandRegistryTransaction(
+                                     transactionUniqueId: String,
+                                     price: Option[Double],
+                                     dateOfTransfer: Option[Date],
+                                     ppdCategoryType: Option[String],
+                                     propertyType: Option[String],
+                                     oldNew: Option[String],
+                                     duration: Option[String]
+                                     )
+
+  case class AggregatedLandRegistry(
+                                   fullAddress: String,
+                                   postcode: Option[String],
+                                   landRegistryTransactions: Seq[LandRegistryTransaction],
+                                   parsedAddress: ParsedAddress
+                                   )
 }
