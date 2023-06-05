@@ -1,5 +1,7 @@
 plugins {
     id 'landalytics.scala-library-conventions'
+    id 'landalytics.scala-libpostal-conventions'
+    id("com.github.maiflai.scalatest") version "0.32"
 }
 
 jar {

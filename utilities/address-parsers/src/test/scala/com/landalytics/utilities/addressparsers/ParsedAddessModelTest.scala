@@ -10,7 +10,7 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
   spark.sparkContext.setLogLevel("WARN")
   import spark.implicits._
 
-  it should "parse address" in {
+  it should "parse address in case class" in {
 
     val parsedAddress = List(ParsedAddress(
       fullAddress = "2 Foobar Lane, London, P05TC0DE",
@@ -20,6 +20,21 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
     parsedAddress.printSchema()
     parsedAddress.show(false)
 
+    // No runtime errors expected
+    succeed
+
+  }
+
+  it should "use libpostal to parse address" in {
+
+    parseAddress("40 SELSDON ROAD, CROYDON, LONDON, CR2 6PB, UK")
+
+    println("another address")
+
+    parseAddress("FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN, UK")
+
+    // no runtime errors
+    succeed
   }
 
 }

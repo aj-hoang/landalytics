@@ -1,10 +1,20 @@
 package com.landalytics.utilities.addressparsers
 
 import scala.reflect.ClassTag
-
+import com.mapzen.jpostal.AddressParser
 
 object ParsedAddressModel {
 
+  def parseAddress(address: String) = {
+    val addressParser: AddressParser = AddressParser.getInstance()
+
+    val parsedAddress = addressParser.parseAddress(address)
+
+    parsedAddress.foreach( c =>
+      println(s"label: ${c.getLabel} value: ${c.getValue}")
+    )
+
+  }
   sealed trait AddressPart {
     val value: String
   }

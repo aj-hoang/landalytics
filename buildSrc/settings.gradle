@@ -3,5 +3,10 @@
  *
  * This settings file is used to specify which projects to include in your build-logic build.
  */
+//pluginManagement{
+//    plugins {
+//        id "com.github.maiflai.scalatest" version "0.32"
+//    }
+//}
 
 rootProject.name = 'buildSrc'

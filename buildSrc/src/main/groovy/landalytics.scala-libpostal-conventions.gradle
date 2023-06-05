@@ -1,0 +1,12 @@
+dependencies {
+    // Use jpostal jar
+    implementation files("$rootProject.projectDir/libpostal/libs/jpostal.jar")
+
+    // jpostal for tests
+    testImplementation files("$rootProject.projectDir/libpostal/libs/jpostal.jar")
+}
+
+test {
+    // Set libpostal JNI libs
+    systemProperty "java.library.path", "$rootProject.projectDir/libpostal/jniLibs"
+}

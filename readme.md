@@ -18,9 +18,20 @@ Since Addressbase is a premium product, linking addresses to a specific coordina
 For now, we can aggregate to postcode, sector, district and area levels.
 
 
+## Prerequisites
+`Libpostal` is required to run the address parsing, check instructions at: https://github.com/openvenues/libpostal
+
 ## EPC Data contains addresses and UPRNs
 EPC data contains the UPRN for the EPC certificate, we can match addresses with EPC addresses to get the coords.
 
 [Some datasource with addresses] -> [EPC Addresses] -> [OS Open UPRN for coords]
 
 We can explore this route
+
+## Running Tests
+
+Example gradle command to run tests:
+
+```shell
+./gradlew :utilities:address-parsers:test --tests "com.landalytics.utilities.addressparsers.ParsedAddessModelTest" --rerun-tasks
+```
