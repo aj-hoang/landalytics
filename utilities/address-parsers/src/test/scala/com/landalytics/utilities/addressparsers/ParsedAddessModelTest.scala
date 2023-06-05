@@ -12,10 +12,24 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
 
   it should "parse address in case class" in {
 
-    val parsedAddress = List(ParsedAddress(
-      fullAddress = "2 Foobar Lane, London, P05TC0DE",
-      Seq(Paon("2"), Street("Foobar Lane"), TownCity("London"), Country("GBR"))
-    )).toDS
+    val parsedAddress = List(
+      ParsedAddress(
+        fullAddress = "2 Foobar Lane, London, P05TC0DE",
+        Seq(HouseNumber("2"), Street("Foobar Lane"), City("London"), Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "40 SELSDON ROAD, CROYDON, LONDON, CR2 6PB",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "5 WORDSWORTH COURT, 6 LOVELACE ROAD, SURBITON, KINGSTON UPON THAMES, LONDON, KT6 6PD",
+        Seq(Country("UK"))
+      )
+    ).toDS
 
     parsedAddress.printSchema()
     parsedAddress.show(false)
@@ -33,8 +47,19 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
 
     parseAddress("FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN, UK")
 
+    println("another address!!")
+
+    parseAddress("5 WORDSWORTH COURT, 6 LOVELACE ROAD, SURBITON, KINGSTON UPON THAMES, LONDON, KT6 6PD")
+
     // no runtime errors
     succeed
+  }
+
+  it should "cleanse full address" in {
+    val actual = cleanseFullAddress("FLAT 1             , 11        SHeeN PARK,     RIchmOND, TW9 1UN")
+    val expected = "FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN"
+
+    actual shouldEqual expected
   }
 
 }
