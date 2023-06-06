@@ -5,8 +5,6 @@ import com.mapzen.jpostal.{AddressParser, ParsedComponent}
 
 object ParsedAddressModel {
 
-//  def capitalizeWordsInString(s: String) = s.split(" ").map(_.capitalize).mkString(" ")
-
   def cleanseFullAddress(address: String): String = {
     address
       .replaceAll("\\s{2,}", " ")
@@ -42,6 +40,21 @@ object ParsedAddressModel {
     parsedAddress.flatMap(libpostalAddressComponentToAddressPart)
   }
 
+  def parsePostcode(postcode: Option[String]): Seq[AddressPart] = {
+
+    // regex string to extract Sector, district and area codes from postcode
+    val regexString = """((([A-Za-z]{1,2})\d{1,2})\s{1,2}\d{1}).*""".r
+
+    postcode match {
+      case Some(x) => x match {
+        case regexString(sector, district, area) => Seq(SectorCode(sector), DistrictCode(district), AreaCode(area))
+        case _ => Seq()
+      }
+      case _ => Seq()
+    }
+
+  }
+
   sealed trait AddressPart {
     val value: String
   }
@@ -52,6 +65,9 @@ object ParsedAddressModel {
   case class Town(value: String) extends AddressPart
   case class City(value: String) extends AddressPart
   case class Postcode(value: String) extends AddressPart
+  case class SectorCode(value: String) extends AddressPart
+  case class DistrictCode(value: String) extends AddressPart
+  case class AreaCode(value: String) extends AddressPart
   case class Country(value: String) extends AddressPart
 
   case class ParsedAddress(
@@ -63,6 +79,9 @@ object ParsedAddressModel {
                            town: Option[String],
                            city: Option[String],
                            postcode: Option[String],
+                           sectorCode: Option[String],
+                           districtCode: Option[String],
+                           areaCode: Option[String],
                            country: Option[String]
                            )
 
@@ -80,6 +99,10 @@ object ParsedAddressModel {
       lazy val parsedFullAddress = parseAddress(fullAddress)
       lazy val combinedParsedAddress = knownAddressParts ++ parsedFullAddress
 
+      // Get postcode and parse to get Sector, District and Area codes
+      lazy val postcode = getAddressPart[Postcode](combinedParsedAddress)
+      val parsedPostcode = parsePostcode(postcode)
+
       // Return prepopulated values for House number, Flat etc.. if supplied
       this(
         fullAddress,
@@ -89,7 +112,10 @@ object ParsedAddressModel {
         getAddressPart[Street](combinedParsedAddress),
         getAddressPart[Town](combinedParsedAddress),
         getAddressPart[City](combinedParsedAddress),
-        getAddressPart[Postcode](combinedParsedAddress),
+        postcode,
+        getAddressPart[SectorCode](parsedPostcode),
+        getAddressPart[DistrictCode](parsedPostcode),
+        getAddressPart[AreaCode](parsedPostcode),
         getAddressPart[Country](combinedParsedAddress)
       )
     }
