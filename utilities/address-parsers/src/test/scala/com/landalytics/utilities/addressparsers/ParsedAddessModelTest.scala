@@ -22,11 +22,31 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
         Seq(Country("UK"))
       ),
       ParsedAddress(
+        fullAddress = "40, SELSDON ROAD, CROYDON, LONDON, CR2 6PB",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
         fullAddress = "FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN",
         Seq(Country("UK"))
       ),
       ParsedAddress(
+        fullAddress = "11, FLAT 1, SHEEN PARK, RICHMOND, TW9 1UN",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
         fullAddress = "5 WORDSWORTH COURT, 6 LOVELACE ROAD, SURBITON, KINGSTON UPON THAMES, LONDON, KT6 6PD",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "WORDSWORTH COURT, 5, 6, LOVELACE ROAD, SURBITON, KINGSTON UPON THAMES, LONDON, KT6 6PD",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "BROOKLYN COURT, 476, FLAT 1, CHRISTCHURCH ROAD, Bournemouth, BH1 4BD",
+        Seq(Country("UK"))
+      ),
+      ParsedAddress(
+        fullAddress = "BOWLINE COURT, FLAT 7, TRINITY WAY,MINEHEAD,TA24 6GP",
         Seq(Country("UK"))
       )
     ).toDS
