@@ -42,15 +42,6 @@ object CreateCaseClass {
           oldNew = rawLr.oldNew,
           duration = rawLr.duration
         )
-//        price = rawLr.price.map(_.toDouble),
-//        dateOfTransfer = rawLr.dateOfTransfer.map(convertLrDateOfTransferStringToDate),
-//        postcode = rawLr.postcode,
-//        propertyType = rawLr.propertyType,
-//        oldNew = rawLr.oldNew,
-//        duration = rawLr.duration,
-//
-//        ppdCategoryType = rawLr.ppdCategoryType,
-//        recordStatus = rawLr.recordStatus
       )
     }
 
