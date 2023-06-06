@@ -5,9 +5,9 @@ import com.mapzen.jpostal.{AddressParser, ParsedComponent}
 
 object ParsedAddressModel {
 
-  def cleanseFullAddress(address: String): String = {
-    address
-      .replaceAll("\\s{2,}", " ")
+  def cleanseStringSimple(s: String): String = {
+    // Simple cleanse of multiple whitespaces and trimming
+    s.replaceAll("\\s{2,}", " ")
       .replaceAll("\\s?,\\s", ", ")
       .toUpperCase
       .trim
@@ -22,17 +22,17 @@ object ParsedAddressModel {
 //    )
 
     def libpostalAddressComponentToAddressPart(addressComponent: ParsedComponent): Option[AddressPart] = {
-      val capitalizedValue = addressComponent.getValue.split(" ").map(_.capitalize).mkString(" ")
-      lazy val upperValue = addressComponent.getValue.toUpperCase
+//      val capitalizedValue = addressComponent.getValue.split(" ").map(_.capitalize).mkString(" ")
+      val value = addressComponent.getValue
 
       addressComponent.getLabel match {
-        case "house_number" => Some(HouseNumber(capitalizedValue))
-        case "unit" | "house" => Some(Flat(capitalizedValue))
-        case "road" => Some(Street(capitalizedValue))
-        case "city_district" => Some(Town(capitalizedValue))
-        case "city" => Some(City(capitalizedValue))
-        case "postcode" => Some(Postcode(upperValue))
-        case "country" => Some(Country(capitalizedValue))
+        case "house_number" => Some(HouseNumber(value))
+        case "unit" | "house" => Some(Flat(value))
+        case "road" => Some(Street(value))
+        case "city_district" => Some(Town(value))
+        case "city" => Some(City(value))
+        case "postcode" => Some(Postcode(value))
+        case "country" => Some(Country(value))
         case _ => None
       }
     }
@@ -91,7 +91,7 @@ object ParsedAddressModel {
 
       def getAddressPart[T <: AddressPart: ClassTag](knownAddressParts: Seq[AddressPart]): Option[String] = {
         knownAddressParts.flatMap {
-          case x: T => Some(x.value)
+          case x: T => Some(cleanseStringSimple(x.value))
           case _ => None
         }.headOption
       }
@@ -103,10 +103,10 @@ object ParsedAddressModel {
       lazy val postcode = getAddressPart[Postcode](combinedParsedAddress)
       val parsedPostcode = parsePostcode(postcode)
 
-      // Return prepopulated values for House number, Flat etc.. if supplied
+      // Return prepopulated values for House number, Flat etc.. if supplied and apply some simple cleansing of the address
       this(
         fullAddress,
-        cleanseFullAddress(fullAddress),
+        cleanseStringSimple(fullAddress),
         getAddressPart[HouseNumber](combinedParsedAddress),
         getAddressPart[Flat](combinedParsedAddress),
         getAddressPart[Street](combinedParsedAddress),

@@ -75,8 +75,8 @@ class ParsedAddessModelTest extends AnyFlatSpec with Matchers {
     succeed
   }
 
-  it should "cleanse full address" in {
-    val actual = cleanseFullAddress("FLAT 1             , 11        SHeeN PARK,     RIchmOND, TW9 1UN")
+  it should "cleanse address string" in {
+    val actual = cleanseStringSimple("FLAT 1             , 11        SHeeN PARK,     RIchmOND, TW9 1UN")
     val expected = "FLAT 1, 11 SHEEN PARK, RICHMOND, TW9 1UN"
 
     actual shouldEqual expected
