@@ -7,8 +7,8 @@ trait SparkRunner extends TypedSpark {
 
   def main(args: Array[String]) = {
 
-    val parser = new OptionParser[SparkETLConfig]("landalytics-spark-etl") {
-      head("landalytics-spark-etl", "1.0")
+    val parser = new OptionParser[SparkETLConfig]("landalytics-spark-runner") {
+      head("landalytics-spark-runner", "1.0")
       opt[String]('s', "source-uri").required().valueName("<source-uri>").
         action((x, c) => c.copy(sourceUri = x)).
         text("Setting source uri is required")
