@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation project(':data-source-land-registry:land-registry-model')
     implementation project(':utilities:address-parsers')
+    implementation project(':utilities:spark-helpers')
 }
 
 jar {

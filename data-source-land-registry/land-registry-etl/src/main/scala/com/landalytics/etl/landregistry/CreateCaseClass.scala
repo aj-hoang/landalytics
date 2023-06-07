@@ -4,17 +4,18 @@ import com.landalytics.etl.landregistry.LandRegistryUtils.constructFullAddress
 import com.landalytics.model.landregistry.raw.RawLandRegistryModel.RawLandRegistry
 import com.landalytics.model.landregistry.clean.CleanLandRegistryModel.{LandRegistry, LandRegistryTransaction}
 import com.landalytics.utilities.addressparsers.ParsedAddressModel.{AddressPart, City, ParsedAddress, Postcode, Street, Town, cleanseStringSimple}
+import com.landalytics.utilities.sparkhelpers.SparkRunner
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 import java.sql.Date
 
-object CreateCaseClass {
+object CreateCaseClass extends SparkRunner {
 
   private def convertLrDateOfTransferStringToDate(dateString: String): Date = {
     Date.valueOf(dateString.substring(0,10))
   }
 
-  def run(spark: SparkSession, sourceUri: String, destinationUri: String, saveMode: SaveMode = SaveMode.Overwrite) = {
+  def run(spark: SparkSession, sourceUri: String, destinationUri: String) = {
     import spark.implicits._
 
     val rawLrDS = spark.read.parquet(sourceUri).as[RawLandRegistry]
@@ -46,7 +47,7 @@ object CreateCaseClass {
     }
 
     lrDS.write
-      .mode(saveMode)
+      .mode(SaveMode.Overwrite)
       .parquet(destinationUri)
   }
 

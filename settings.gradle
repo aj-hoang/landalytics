@@ -16,6 +16,7 @@ rootProject.name = 'landalytics'
 include(
         'app',
         'utilities:address-parsers',
+        'utilities:spark-helpers',
         'data-source-land-registry:land-registry-model',
         'data-source-land-registry:land-registry-etl'
 )
