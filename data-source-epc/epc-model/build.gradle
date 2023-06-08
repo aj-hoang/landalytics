@@ -1,0 +1,11 @@
+plugins {
+    id 'landalytics.scala-library-conventions'
+}
+
+dependencies {
+    implementation project(':utilities:address-parsers')
+}
+
+jar {
+    archiveBaseName = "${project.name}_$scalaVersion"
+}
