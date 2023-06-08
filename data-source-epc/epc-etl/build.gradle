@@ -1,0 +1,23 @@
+plugins {
+    id 'landalytics.scala-library-conventions'
+    id 'landalytics.scala-libpostal-conventions'
+    id("com.github.maiflai.scalatest") version "0.32"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+dependencies {
+    implementation project(':data-source-epc:epc-model')
+    implementation project(':utilities:address-parsers')
+    implementation project(':utilities:spark-helpers')
+}
+
+shadowJar {
+    zip64 = true
+    archiveBaseName.set("${project.name}-shadow_${scalaVersion}")
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+jar {
+    archiveBaseName = "${project.name}_$scalaVersion"
+}
