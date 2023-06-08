@@ -21,6 +21,23 @@ For now, we can aggregate to postcode, sector, district and area levels.
 ## Prerequisites
 `Libpostal` is required to run the address parsing, check instructions at: https://github.com/openvenues/libpostal
 
+## Subprojects
+
+### data-source-land-registry
+Contains the Model and ETLs for the land registry price paid data
+
+### data-source-epc
+Contains the Model and ETLs for the EPC data
+
+### landalytics-address-core
+Contains the Model and ETLs for constructing the landalytics address core. 
+This will contain coords and addresses used for address matching on other data sources
+
+### utilities
+Contains utility functions for use across other subprojects
+
+
+
 ## EPC Data contains addresses and UPRNs
 EPC data contains the UPRN for the EPC certificate, we can match addresses with EPC addresses to get the coords.
 
