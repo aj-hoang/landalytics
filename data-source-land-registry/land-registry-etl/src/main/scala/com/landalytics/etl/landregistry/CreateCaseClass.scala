@@ -3,7 +3,7 @@ package com.landalytics.etl.landregistry
 import com.landalytics.etl.landregistry.LandRegistryUtils.constructFullAddress
 import com.landalytics.model.landregistry.raw.RawLandRegistryModel.RawLandRegistry
 import com.landalytics.model.landregistry.clean.CleanLandRegistryModel.{LandRegistry, LandRegistryTransaction}
-import com.landalytics.utilities.addressparsers.ParsedAddressModel.{AddressPart, City, ParsedAddress, Postcode, Street, Town, cleanseStringSimple}
+import com.landalytics.utilities.addressparsers.ParsedAddressModel.{AddressPart, City, ParsedAddress, Postcode, Street, Town, Country, cleanseStringSimple}
 import com.landalytics.utilities.sparkhelpers.SparkRunner
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
@@ -27,7 +27,8 @@ object CreateCaseClass extends SparkRunner {
         rawLr.street.map(Street),
         rawLr.townCity.map(City),
         rawLr.district.map(Town),
-        rawLr.postcode.map(Postcode)
+        rawLr.postcode.map(Postcode),
+        Some(Country("UK"))
       ).flatten
 
       LandRegistry(
