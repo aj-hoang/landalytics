@@ -21,6 +21,8 @@ include(
         'data-source-land-registry:land-registry-etl',
         'data-source-epc:epc-model',
         'data-source-epc:epc-etl',
+        'data-source-os-open-uprn:os-open-uprn-model',
+        'data-source-os-open-uprn:os-open-uprn-etl',
         'landalytics-address-core:address-core-model',
         'landalytics-address-core:address-core-etl'
 )
