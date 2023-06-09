@@ -4,8 +4,8 @@ object CleanOsOpenUprnModel {
 
   case class OsOpenUprn(
                          uprn: String,
-                         xCoordinate: Int,
-                         yCoordinate: Int,
+                         xCoordinate: Double,
+                         yCoordinate: Double,
                          latitude: Double,
                          longitude: Double
                        )
