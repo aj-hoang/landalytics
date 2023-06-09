@@ -13,8 +13,6 @@ object CreateCaseClassSlim extends SparkRunner {
   def run(spark: SparkSession, sourceUri: String, destinationUri: String): Unit = {
     import spark.implicits._
 
-    def convertDateStringToDate(s: String): Date = Date.valueOf(s)
-
     val rawEpcDS = spark.read.parquet(sourceUri).as[RawEPC]
 
     val epcDS = rawEpcDS.map{ rawEpc =>
