@@ -2,6 +2,7 @@ package com.landalytics.utilities.confighelpers
 
 import io.circe._
 import io.circe.generic.semiauto._
+// The below import is required for case class to inherit implicit decoders required to convert json into case classes
 import io.circe.generic.auto._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
