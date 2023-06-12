@@ -21,6 +21,7 @@ dependencies {
         implementation "io.circe:circe-core_$scalaVersion:0.14.1"
         implementation "io.circe:circe-generic_$scalaVersion:0.14.1"
         implementation "io.circe:circe-parser_$scalaVersion:0.14.1"
+        implementation "io.circe:circe-optics_$scalaVersion:0.14.1"
         implementation "com.github.scopt:scopt_$scalaVersion:4.1.0"
     }
 
@@ -34,6 +35,7 @@ dependencies {
     implementation "io.circe:circe-core_$scalaVersion"
     implementation "io.circe:circe-generic_$scalaVersion"
     implementation "io.circe:circe-parser_$scalaVersion"
+    implementation "io.circe:circe-optics_$scalaVersion"
     implementation "com.github.scopt:scopt_$scalaVersion"
 
     // Use JUnit Jupiter for testing.
