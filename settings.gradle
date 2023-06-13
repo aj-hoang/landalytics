@@ -17,6 +17,7 @@ include(
         'app',
         'utilities:address-parsers',
         'utilities:spark-helpers',
+        'utilities:etl-helpers',
         'data-source-land-registry:land-registry-model',
         'data-source-land-registry:land-registry-etl',
         'data-source-epc:epc-model',
