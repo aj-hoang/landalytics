@@ -8,7 +8,10 @@ plugins {
 dependencies {
     implementation project(':landalytics-address-core:address-core-model')
     implementation project(':utilities:address-parsers')
+    implementation project(':utilities:etl-helpers')
     implementation project(':utilities:spark-helpers')
+    implementation project(':data-source-os-open-uprn:os-open-uprn-model')
+    implementation project(':data-source-epc:epc-model')
 }
 
 shadowJar {
@@ -16,6 +19,11 @@ shadowJar {
     archiveBaseName.set("${project.name}-shadow_${scalaVersion}")
     archiveClassifier.set('')
     archiveVersion.set('')
+
+    // Below are required to shade these dependencies so they do not conflict with same library on the classpath of a running spark cluster
+    // See: https://github.com/typelevel/cats/issues/3628
+    relocate "shapeless", "com.landalytics.shadow.shapeless"
+    relocate "cats.kernel", "com.landalytics.shadow.cats.kernel"
 }
 
 jar {
