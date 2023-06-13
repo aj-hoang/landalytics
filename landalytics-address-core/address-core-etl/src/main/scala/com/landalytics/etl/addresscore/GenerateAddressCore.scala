@@ -3,10 +3,13 @@ package com.landalytics.etl.addresscore
 import com.landalytics.model.epc.clean.CleanEPCModel.EPCSlim
 import com.landalytics.model.osopenuprn.clean.CleanOsOpenUprnModel.OsOpenUprn
 import com.landalytics.model.addresscore.AddressCoreModel._
+import com.landalytics.model.addresscore.ConfigModel.AddressCoreConfig
 import com.landalytics.utilities.etlhelpers.UUIDGenerator.generateUUID
+import com.landalytics.utilities.sparkhelpers.ExtraConfigSparkRunner
 import org.apache.spark.sql.{Dataset, SaveMode, SparkSession}
+import io.circe.generic.auto._
 
-object GenerateAddressCore {
+object GenerateAddressCore extends ExtraConfigSparkRunner[AddressCoreConfig] {
 
   def aggregateEPC(epcDS: Dataset[EPCSlim]): Dataset[(String, EPCSlim)] = {
     import epcDS.sparkSession.implicits._
@@ -46,18 +49,18 @@ object GenerateAddressCore {
     }
   }
 
-  def run(spark: SparkSession): Unit = {
+  def run(spark: SparkSession, config: AddressCoreConfig): Unit = {
 
     // OS Open Uprns contain the UPRNS and coords
     // EPC contains addresses and the associated UPRN
     // By joining these 2 datasources, we can get the coords of the addresses
     import spark.implicits._
 
-    // TODO populate with config
-    val epcInputUri: String = ???
-    val osOpenUprnInputUri: String = ???
-    val outputMatchedUri: String = ???
-    val outputNotMatchedUri: String = ???
+
+    val epcInputUri: String = config.generateAddressCoreConfig.epcInputUri
+    val osOpenUprnInputUri: String = config.generateAddressCoreConfig.osOpenUprnInputUri
+    val outputMatchedUri: String = config.generateAddressCoreConfig.addressCoreMatchedOutputUri
+    val outputNotMatchedUri: String = config.generateAddressCoreConfig.addressCoreNotMatchedOutputUri
 
 
     val epcDS = spark.read.parquet(epcInputUri).as[EPCSlim]
