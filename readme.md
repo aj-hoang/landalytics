@@ -21,6 +21,8 @@ For now, we can aggregate to postcode, sector, district and area levels.
 ## Prerequisites
 `Libpostal` is required to run the address parsing, check instructions at: https://github.com/openvenues/libpostal
 
+Ensure you have the libpostal libraries on the `libpostal` folder in the project root, the spark jobs that need libpostal will need to reference the libs and some tests require the path to the libs too.
+
 ## Subprojects
 
 ### data-source-land-registry
