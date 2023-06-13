@@ -14,6 +14,11 @@ shadowJar {
     archiveBaseName.set("${project.name}-shadow_${scalaVersion}")
     archiveClassifier.set('')
     archiveVersion.set('')
+
+    // Below are required to shade these dependencies so they do not conflict with same library on the classpath of a running spark cluster
+    // See: https://github.com/typelevel/cats/issues/3628
+    relocate "shapeless", "com.landalytics.shadow.shapeless"
+    relocate "cats.kernel", "com.landalytics.shadow.cats.kernel"
 }
 
 jar {
