@@ -20,7 +20,7 @@ object CreateCaseClass extends SparkRunner {
 
     // temporary filter so I can process smaller volume
     val rawLrDS = spark.read.parquet(sourceUri).as[RawLandRegistry]
-      .filter(_.postcode.exists(pc => pc.startsWith("CR")))
+      .filter(_.postcode.exists(pc => Seq("CR", "SE", "SW").contains(pc.substring(0,2))))
 
     val lrDS = rawLrDS.map{ rawLr =>
       val fullAddress = cleanseStringSimple(constructFullAddress(Seq(rawLr.paon, rawLr.saon, rawLr.street, rawLr.townCity, rawLr.district, rawLr.postcode)))

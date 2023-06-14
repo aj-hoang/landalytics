@@ -43,7 +43,7 @@ object ParsedAddressModel {
   def parsePostcode(postcode: Option[String]): Seq[AddressPart] = {
 
     // regex string to extract Sector, district and area codes from postcode
-    val regexString = """((([A-Za-z]{1,2})\d{1,2})\s{1,2}\d{1}).*""".r
+    val regexString = """((([A-Za-z]{1,2})\d{1}[A-Za-z\d]?)\s{1,2}\d{1}).*""".r
 
     postcode match {
       case Some(x) => x match {
