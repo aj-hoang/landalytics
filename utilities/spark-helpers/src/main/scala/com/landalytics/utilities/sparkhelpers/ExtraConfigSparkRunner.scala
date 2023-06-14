@@ -23,6 +23,7 @@ abstract class ExtraConfigSparkRunner[T: Decoder] extends ConfigExtractor[T] wit
         val jsonConfig: T = loadConfig(config.configLocation)
 
         val spark = SparkSession.builder().master("local[*]").getOrCreate()
+        spark.sparkContext.setLogLevel("WARN")
 
         // run with config values
         run(spark, jsonConfig)
