@@ -18,7 +18,9 @@ object CreateCaseClass extends SparkRunner {
   def run(spark: SparkSession, sourceUri: String, destinationUri: String) = {
     import spark.implicits._
 
+    // temporary filter so I can process smaller volume
     val rawLrDS = spark.read.parquet(sourceUri).as[RawLandRegistry]
+      .filter(_.postcode.exists(pc => pc.startsWith("CR")))
 
     val lrDS = rawLrDS.map{ rawLr =>
       val fullAddress = cleanseStringSimple(constructFullAddress(Seq(rawLr.paon, rawLr.saon, rawLr.street, rawLr.townCity, rawLr.district, rawLr.postcode)))

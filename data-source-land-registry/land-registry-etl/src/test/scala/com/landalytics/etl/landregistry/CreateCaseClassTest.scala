@@ -17,7 +17,7 @@ class CreateCaseClassTest extends AnyFlatSpec with Matchers {
       transactionUniqueId = "someId",
       price = Some("12345"),
       dateOfTransfer = Some("2023-01-01 00:00"),
-      postcode = Some("SomePostcode"),
+      postcode = Some("CRPOSTCODE"),
       propertyType = None,
       oldNew = None,
       duration = None,
