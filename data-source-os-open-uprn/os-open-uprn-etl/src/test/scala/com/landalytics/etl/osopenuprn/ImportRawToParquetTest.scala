@@ -1,6 +1,6 @@
 package com.landalytics.etl.osopenuprn
 
-import com.landalytics.utilities.confighelpers.ConfigModels.OsOpenUprnConfig
+import com.landalytics.model.osopenuprn.ConfigModel.OsOpenUprnConfig
 import org.apache.spark.sql.SparkSession
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -19,10 +19,9 @@ class ImportRawToParquetTest extends AnyFlatSpec with Matchers {
     println(destinationUri)
 
     val config = OsOpenUprnConfig(
-      importRawToParquetSourceUri = sourceUri,
-      importRawToParquetDestinationUri = destinationUri,
-      createCaseClassSourceUri = "",
-      createCaseClassDestinationUri = ""
+      csvUri = sourceUri,
+      rawParquetUri = destinationUri,
+      createCaseClassParquetUri = ""
     )
 
     // Should have no runtime errors

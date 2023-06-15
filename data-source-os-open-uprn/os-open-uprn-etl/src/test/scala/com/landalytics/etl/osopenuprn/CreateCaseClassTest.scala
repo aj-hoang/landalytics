@@ -1,7 +1,7 @@
 package com.landalytics.etl.osopenuprn
 
 import com.landalytics.model.osopenuprn.raw.RawOsOpenUprnModel.RawOsOpenUprn
-import com.landalytics.utilities.confighelpers.ConfigModels.OsOpenUprnConfig
+import com.landalytics.model.osopenuprn.ConfigModel.OsOpenUprnConfig
 import org.apache.spark.sql.{SaveMode, SparkSession}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -35,10 +35,9 @@ class CreateCaseClassTest extends AnyFlatSpec with Matchers {
 
 
     val config = OsOpenUprnConfig(
-      importRawToParquetSourceUri = "",
-      importRawToParquetDestinationUri = "",
-      createCaseClassSourceUri = sourceUri,
-      createCaseClassDestinationUri = destinationUri
+      csvUri = "",
+      rawParquetUri = sourceUri,
+      createCaseClassParquetUri = destinationUri
     )
 
     CreateCaseClass.run(spark, config)

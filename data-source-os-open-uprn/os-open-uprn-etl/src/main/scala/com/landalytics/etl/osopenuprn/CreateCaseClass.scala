@@ -2,7 +2,7 @@ package com.landalytics.etl.osopenuprn
 
 import com.landalytics.model.osopenuprn.raw.RawOsOpenUprnModel.RawOsOpenUprn
 import com.landalytics.model.osopenuprn.clean.CleanOsOpenUprnModel.OsOpenUprn
-import com.landalytics.utilities.confighelpers.ConfigModels.OsOpenUprnConfig
+import com.landalytics.model.osopenuprn.ConfigModel.OsOpenUprnConfig
 import com.landalytics.utilities.sparkhelpers.ExtraConfigSparkRunner
 import org.apache.spark.sql.{SaveMode, SparkSession}
 import io.circe.generic.auto._
@@ -11,8 +11,8 @@ object CreateCaseClass extends ExtraConfigSparkRunner[OsOpenUprnConfig] {
   def run(spark: SparkSession, config: OsOpenUprnConfig): Unit = {
     import spark.implicits._
 
-    val sourceUri = config.createCaseClassSourceUri
-    val destinationUri = config.createCaseClassDestinationUri
+    val sourceUri = config.rawParquetUri
+    val destinationUri = config.createCaseClassParquetUri
 
     val rawOsOpenUprnDS = spark.read.parquet(sourceUri).as[RawOsOpenUprn]
 
