@@ -25,5 +25,6 @@ include(
         'data-source-os-open-uprn:os-open-uprn-model',
         'data-source-os-open-uprn:os-open-uprn-etl',
         'landalytics-address-core:address-core-model',
-        'landalytics-address-core:address-core-etl'
+        'landalytics-address-core:address-core-etl',
+        'landalytics-address-matcher:address-matcher'
 )
