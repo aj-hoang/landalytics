@@ -29,8 +29,6 @@ object AddressMatcher extends ExtraConfigSparkRunner[AddressMatcherConfig] {
       val matchedDS = joinedDS.where("addressCore.id is not null")
       val notMatchedDS = joinedDS.where("addressCore.id is null").map(_.sourceClass)
 
-      joinedDS.map(_.addressCore)
-
       (matchedDS, notMatchedDS)
     }
 
@@ -53,44 +51,19 @@ object AddressMatcher extends ExtraConfigSparkRunner[AddressMatcherConfig] {
         |sourceDS.parsedAddress.postcode = addressCoreDS.parsedAddress.postcode
         | AND sourceDS.parsedAddress.houseNumber = addressCoreDS.parsedAddress.houseNumber
         | AND sourceDS.parsedAddress.street = addressCoreDS.parsedAddress.street
-        | AND sourceDS.parsedAddress.town = addressCoreDS.parsedAddress.town
-        | AND sourceDS.parsedAddress.city = addressCoreDS.parsedAddress.city
         | AND sourceDS.parsedAddress.flat is null
         | AND addressCoreDS.parsedAddress.flat is null
         |""".stripMargin
-
 
     val joinCondition2 =
       """
         |sourceDS.parsedAddress.postcode = addressCoreDS.parsedAddress.postcode
-        | AND sourceDS.parsedAddress.houseNumber = addressCoreDS.parsedAddress.houseNumber
-        | AND sourceDS.parsedAddress.street = addressCoreDS.parsedAddress.street
-        | AND sourceDS.parsedAddress.city = addressCoreDS.parsedAddress.city
-        | AND sourceDS.parsedAddress.flat is null
-        | AND addressCoreDS.parsedAddress.flat is null
-        |""".stripMargin
-
-    val joinCondition3 =
-      """
-        |sourceDS.parsedAddress.postcode = addressCoreDS.parsedAddress.postcode
         | AND sourceDS.parsedAddress.flat = addressCoreDS.parsedAddress.flat
         | AND sourceDS.parsedAddress.houseNumber = addressCoreDS.parsedAddress.houseNumber
         | AND sourceDS.parsedAddress.street = addressCoreDS.parsedAddress.street
-        | AND sourceDS.parsedAddress.town = addressCoreDS.parsedAddress.town
-        | AND sourceDS.parsedAddress.city = addressCoreDS.parsedAddress.city
         |""".stripMargin
 
-    val joinCondition4 =
-      """
-        |sourceDS.parsedAddress.postcode = addressCoreDS.parsedAddress.postcode
-        | AND sourceDS.parsedAddress.flat = addressCoreDS.parsedAddress.flat
-        | AND sourceDS.parsedAddress.houseNumber = addressCoreDS.parsedAddress.houseNumber
-        | AND sourceDS.parsedAddress.street = addressCoreDS.parsedAddress.street
-        | AND sourceDS.parsedAddress.city = addressCoreDS.parsedAddress.city
-        |""".stripMargin
-
-
-    val joinConditions = Seq(joinCondition1, joinCondition2, joinCondition3, joinCondition4)
+    val joinConditions = Seq(joinCondition1, joinCondition2)
 
     val (combinedMatchedDS, combinedNotMatchedDS) = joinConditions.foldLeft((spark.emptyDataset[JoinedClass], sourceDS)){ (accum, jc) =>
       val (matchedDS, notMatchedDS) = addressMatch(accum._2, addressCoreDS, expr(jc))
