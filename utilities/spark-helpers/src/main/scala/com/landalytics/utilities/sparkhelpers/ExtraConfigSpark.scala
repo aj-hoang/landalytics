@@ -7,6 +7,8 @@ import io.circe.generic.auto._
 import io.circe.generic.semiauto._
 
 trait ExtraConfigSpark[T] extends LandalyticsSparkScript {
+
+  def useSedona: Boolean = false
   def run(spark: SparkSession, config: T): Unit
 
 }
