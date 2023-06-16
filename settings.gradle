@@ -24,6 +24,8 @@ include(
         'data-source-epc:epc-etl',
         'data-source-os-open-uprn:os-open-uprn-model',
         'data-source-os-open-uprn:os-open-uprn-etl',
+        'data-source-codepoint-open:codepoint-open-model',
+        'data-source-codepoint-open:codepoint-open-etl',
         'landalytics-address-core:address-core-model',
         'landalytics-address-core:address-core-etl',
         'landalytics-address-matcher:address-matcher'
