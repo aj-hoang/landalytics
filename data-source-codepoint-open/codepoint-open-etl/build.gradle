@@ -1,0 +1,26 @@
+plugins {
+    id 'landalytics.scala-library-conventions'
+    id("com.github.maiflai.scalatest") version "0.32"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+dependencies {
+    implementation project(':data-source-codepoint-open:codepoint-open-model')
+    implementation project(':utilities:spark-helpers')
+}
+
+shadowJar {
+    zip64 = true
+    archiveBaseName.set("${project.name}-shadow_${scalaVersion}")
+    archiveClassifier.set('')
+    archiveVersion.set('')
+
+    // Below are required to shade these dependencies so they do not conflict with same library on the classpath of a running spark cluster
+    // See: https://github.com/typelevel/cats/issues/3628
+    relocate "shapeless", "com.landalytics.shadow.shapeless"
+    relocate "cats.kernel", "com.landalytics.shadow.cats.kernel"
+}
+
+jar {
+    archiveBaseName = "${project.name}_$scalaVersion"
+}
