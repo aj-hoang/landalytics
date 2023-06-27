@@ -31,14 +31,31 @@ Contains the Model and ETLs for the land registry price paid data
 ### data-source-epc
 Contains the Model and ETLs for the EPC data
 
+### data-source-codepoint-open
+Contains the Model and ETLs for the codepoint open data
+
+### data-source-os-open-uprn
+Contains the Model and ETLs for the os open uprn data
+
 ### landalytics-address-core
 Contains the Model and ETLs for constructing the landalytics address core. 
 This will contain coords and addresses used for address matching on other data sources
 
+### landalytics-address-matcher
+The spark app here allows address-matching of datasets that contains parsedAddress field and performs address-matching on the landalytics-address-core dataset
+
+
 ### utilities
 Contains utility functions for use across other subprojects
 
+#### address-parsers
+Contains the ParserAddress model and apply methods required to parse addresses. Utilizes libpostal to do parse address.
 
+#### etl-helpers
+Contains common etl methods which can be used across any etl subproject
+
+#### spark-helpers
+Contains spark helpers traits and abstract classes to align spark jobs to initialize spark as well as using io.circe to allow passing in of custom json configuration for spark jobs.
 
 ## EPC Data contains addresses and UPRNs
 EPC data contains the UPRN for the EPC certificate, we can match addresses with EPC addresses to get the coords.
